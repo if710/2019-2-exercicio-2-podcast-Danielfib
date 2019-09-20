@@ -117,7 +117,7 @@ object Parser {
                 skip(parser)
             }
         }
-        return ItemFeed(title!!, link!!, pubDate!!, description!!, "carregar o link")
+        return ItemFeed(title!!, link!!, pubDate!!, description!!, link!!)
     }
 
     // Processa tags de forma parametrizada no feed.
