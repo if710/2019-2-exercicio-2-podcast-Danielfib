@@ -22,6 +22,12 @@ class EpisodeDetailActivity : AppCompatActivity() {
         item_title.text = intent.getStringExtra("item_title")
         item_description.text = intent.getStringExtra("item_description")
         item_link.text = intent.getStringExtra("item_link")
+        item_link.setOnClickListener {
+            val i = Intent()
+            i.action = ACTION_VIEW
+            i.data = Uri.parse(intent.getStringExtra("item_link"))
+            startActivity(i)
+        }
         download_button.setOnClickListener {
             val i = Intent()
             i.action = ACTION_VIEW
