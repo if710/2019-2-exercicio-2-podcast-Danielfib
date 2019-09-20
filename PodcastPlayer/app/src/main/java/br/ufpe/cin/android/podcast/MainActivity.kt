@@ -7,6 +7,9 @@ import java.net.URL
 import android.os.AsyncTask
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,8 +18,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         doAsync {
-            var xmlContent = URL("https://s3-us-west-1.amazonaws.com/podcasts.thepolyglotdeveloper.com/podcast.xml").readText()
-            var itemFeedList = Parser.parse(xmlContent)
+            val xmlContent = URL("https://s3-us-west-1.amazonaws.com/podcasts.thepolyglotdeveloper.com/podcast.xml").readText()
+            val itemFeedList = Parser.parse(xmlContent)
+            uiThread {
+                listRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                listRecyclerView.adapter = ItemFeedAdapter(itemFeedList, this@MainActivity)
+                listRecyclerView.addItemDecoration(DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL))
+            }
         }
     }
 }
