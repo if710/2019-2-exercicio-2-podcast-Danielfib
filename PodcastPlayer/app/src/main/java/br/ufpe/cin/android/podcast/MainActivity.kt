@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val db = ItemsDB.getDatabase(this)
 
         doAsync {
-            val xmlContent = URL("https://s3-us-west-1.amazonaws.com/podcasts.thepolyglotdeveloper.com/podcast.xml").readText()
+            val xmlContent = URL("http://audio.globoradio.globo.com/podcast/feed/507/2-pontos").readText()
             val itemFeedList = Parser.parse(xmlContent)
             uiThread {
                 listRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
