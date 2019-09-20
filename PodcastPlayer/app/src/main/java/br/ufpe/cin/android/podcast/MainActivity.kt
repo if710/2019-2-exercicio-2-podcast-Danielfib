@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val db = ItemsDB.getDatabase(this)
+
         doAsync {
             val xmlContent = URL("https://s3-us-west-1.amazonaws.com/podcasts.thepolyglotdeveloper.com/podcast.xml").readText()
             val itemFeedList = Parser.parse(xmlContent)
@@ -24,6 +26,12 @@ class MainActivity : AppCompatActivity() {
                 listRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
                 listRecyclerView.adapter = ItemFeedAdapter(itemFeedList, this@MainActivity)
                 listRecyclerView.addItemDecoration(DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL))
+            }
+
+
+            for (item in itemFeedList) {
+                db.itemsDAO().inserirItem(item)
+                //println(item)
             }
         }
     }
